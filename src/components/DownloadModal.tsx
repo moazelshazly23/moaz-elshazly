@@ -1,3 +1,4 @@
+import { getApiUrl } from '../services/api.ts';
 import React, { useState, useEffect } from 'react';
 import { useLanguage } from '../context/LanguageContext.tsx';
 import { AppItem, AppVersion } from '../types/index.ts';
@@ -90,7 +91,7 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({
 
   const triggerFileDownload = () => {
     if (!app || !version) return;
-    const downloadEndpoint = `/api/apps/${app.id}/download/${version.id}`;
+    const downloadEndpoint = getApiUrl(`/api/apps/${app.id}/download/${version.id}`);
     const link = document.createElement('a');
     link.href = downloadEndpoint;
     link.setAttribute('download', version.apkFileName || `${app.slug}-${version.versionName}.apk`);

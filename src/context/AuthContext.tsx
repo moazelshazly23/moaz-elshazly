@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { AdminUser } from '../types/index.ts';
+import { getApiUrl } from '../services/api.ts';
 
 interface AuthContextType {
   token: string | null;
@@ -28,7 +29,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         return;
       }
       try {
-        const res = await fetch('/api/auth/me', {
+        const res = await fetch(getApiUrl('/api/auth/me'), {
           headers: { Authorization: `Bearer ${token}` },
         });
         if (res.ok) {
