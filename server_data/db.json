@@ -1,0 +1,643 @@
+{
+  "admin": {
+    "id": "admin_1",
+    "name": "Eng. Moaz El Shazly",
+    "email": "admin@engmoaz.com",
+    "passwordHash": "$2b$10$Bk.3zMUTXBGjeuiOiUMapOs04b7EgYEjHj1xnWzvpOTRnCc5FPf6."
+  },
+  "developer": {
+    "name": {
+      "ar": "المهندس معاذ الشاذلي",
+      "en": "Eng. Moaz El Shazly"
+    },
+    "title": {
+      "ar": "مهندس برمجيات تطبيقات أندرويد وبنيات الهاتف المحمول",
+      "en": "Senior Android Software Engineer & Mobile Architect"
+    },
+    "bio": {
+      "ar": "مهندس برمجيات متخصص في تطوير وهندسة تطبيقات أندرويد الحديثة (Native Kotlin & Jetpack Compose). خبرة واسعة في بناء تطبيقات عالية الأداء، Clean Architecture، وتكامل خدمات السحاب وقواعد البيانات المتقدمة.",
+      "en": "Passionate Android Software Engineer specializing in modern Native Kotlin, Jetpack Compose, Clean Architecture, reactive programming, and high-performance mobile systems with published apps serving thousands of active users."
+    },
+    "avatarUrl": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80",
+    "email": "moaz.elshazly.dev@gmail.com",
+    "phone": "+20 100 000 0000",
+    "location": {
+      "ar": "القاهرة، مصر (متاح للعمل عن بُعد عالمياً)",
+      "en": "Cairo, Egypt (Available Globally for Remote & Consulting)"
+    },
+    "experienceYears": 7,
+    "skills": [
+      {
+        "name": "Android SDK & Kotlin",
+        "level": 98,
+        "category": "core"
+      },
+      {
+        "name": "Jetpack Compose & Material 3",
+        "level": 95,
+        "category": "framework"
+      },
+      {
+        "name": "Clean Architecture & MVI/MVVM",
+        "level": 96,
+        "category": "core"
+      },
+      {
+        "name": "Kotlin Coroutines & Flow",
+        "level": 94,
+        "category": "core"
+      },
+      {
+        "name": "Room DB & SQLite & SQLCipher",
+        "level": 92,
+        "category": "framework"
+      },
+      {
+        "name": "Ktor & Retrofit & REST APIs",
+        "level": 95,
+        "category": "framework"
+      },
+      {
+        "name": "Hilt & Dagger Dependency Injection",
+        "level": 92,
+        "category": "framework"
+      },
+      {
+        "name": "Firebase & Push Notifications",
+        "level": 90,
+        "category": "tools"
+      },
+      {
+        "name": "CI/CD & GitHub Actions & Gradle",
+        "level": 88,
+        "category": "tools"
+      },
+      {
+        "name": "Unit & UI Testing (MockK, Espresso)",
+        "level": 86,
+        "category": "tools"
+      }
+    ],
+    "social": {
+      "github": "https://github.com/moaz-elshazly",
+      "linkedin": "https://linkedin.com/in/moaz-elshazly",
+      "googlePlay": "https://play.google.com/store/apps/dev?id=moaz-elshazly",
+      "twitter": "https://twitter.com/moaz_dev",
+      "whatsapp": "+201000000000"
+    },
+    "stats": {
+      "totalApps": 5,
+      "totalDownloads": 124850,
+      "happyUsers": "50K+",
+      "yearsOfExperience": 6
+    }
+  },
+  "categories": [
+    {
+      "id": "cat_islamic",
+      "name": {
+        "ar": "إسلاميات وأسلوب حياة",
+        "en": "Islamic & Lifestyle"
+      },
+      "slug": "islamic-lifestyle",
+      "icon": "Moon",
+      "description": {
+        "ar": "تطبيقات دينية وأدوات يومية للمسلم",
+        "en": "Spiritual and everyday Islamic utilities"
+      }
+    },
+    {
+      "id": "cat_productivity",
+      "name": {
+        "ar": "إنتاجية وأعمال",
+        "en": "Productivity & Work"
+      },
+      "slug": "productivity",
+      "icon": "CheckSquare",
+      "description": {
+        "ar": "تطبيقات تنظيم الوقت وإدارة المهام والعادات",
+        "en": "Time management, habits, and task workflows"
+      }
+    },
+    {
+      "id": "cat_audio",
+      "name": {
+        "ar": "صوتيات ووسائط",
+        "en": "Audio & Media"
+      },
+      "slug": "audio-media",
+      "icon": "Mic",
+      "description": {
+        "ar": "أدوات تسجيل وتحرير الصوت عالي الدقة",
+        "en": "High fidelity audio recording and sound tools"
+      }
+    },
+    {
+      "id": "cat_finance",
+      "name": {
+        "ar": "مالية واستثمار",
+        "en": "Finance & Markets"
+      },
+      "slug": "finance",
+      "icon": "TrendingUp",
+      "description": {
+        "ar": "متابعة الأسواق وتتبع العملات والمحافظ",
+        "en": "Market trackers, currency tickers, and portfolios"
+      }
+    },
+    {
+      "id": "cat_utilities",
+      "name": {
+        "ar": "أدوات ونظام",
+        "en": "Utilities & System"
+      },
+      "slug": "utilities",
+      "icon": "Wrench",
+      "description": {
+        "ar": "أدوات إدارة النظام ونقل الملفات والشبكات",
+        "en": "Device utilities, P2P network tools, and storage"
+      }
+    },
+    {
+      "id": "cat_1791404253247",
+      "name": {
+        "ar": "ألعاب وذكاء",
+        "en": "Games & AI"
+      },
+      "slug": "games-ai",
+      "icon": "Sparkles",
+      "description": {
+        "ar": "ألعاب ذكاء وتحدي",
+        "en": "Brain games and AI tools"
+      }
+    }
+  ],
+  "apps": [
+    {
+      "id": "app_1",
+      "slug": "zad-al-muslim-quran",
+      "title": {
+        "ar": "زاد المسلم — القرآن الكريم والأذكار",
+        "en": "Zad Al-Muslim — Quran & Daily Azkar"
+      },
+      "tagline": {
+        "ar": "تطبيق شامل بدون إنترنت مع مواقيت الصلاة الدقيقة والقبلة وتلاوات خاشعة",
+        "en": "All-in-one offline Holy Quran, accurate prayer times, Qibla and authentic Azkar"
+      },
+      "description": {
+        "ar": "تطبيق \"زاد المسلم\" هو تطبيق أندرويد متكامل ومصمم بأحدث تقنيات Jetpack Compose لتوفير تجربة روحانية استثنائية. يحتوي على المصحف الشريف بخط عثماني واضح مع التفسير الميسر، مواقيت الصلاة بدقة عالية بحسب موقعك، بوصلة القبلة، أذكار الصباح والمساء، وحساب الورد اليومي مع إحصائيات القراءة.",
+        "en": "Zad Al-Muslim is an offline-first Android application designed with modern Jetpack Compose. Features crystal clear Uthmanic Quran script, comprehensive Tafseer, hyper-accurate prayer time notifications with GPS/offline calculation, Qibla compass, authentic morning & evening Azkar, and daily reading tracking with intelligent bookmarks."
+      },
+      "features": {
+        "ar": [
+          "المصحف الشريف كاملاً بدون الحاجة للاتصال بالإنترنت",
+          "مواقيت الصلاة الدقيقة والتنبيه بالأذان بأصوات متعددة",
+          "بوصلة القبلة الذكية بدقة متناهية عبر مستشعرات الهاتف",
+          "أذكار الصباح والمساء وحصن المسلم مع عداد تسبيح رقمي",
+          "تفسير الآيات وإمكانية البحث الفوري والنسخ والمشاركة",
+          "الوضع الليلي المريح للعين مع حفظ تلقائي لموضع القراءة"
+        ],
+        "en": [
+          "Full Holy Quran available 100% offline with fast indexing",
+          "Accurate prayer times with customizable Adhan notifications",
+          "Smart Qibla compass calibrated via hardware sensors",
+          "Authentic Azkar with haptic digital Tasbeeh counter",
+          "Instant multi-word Quranic search and Tafseer display",
+          "Gentle Dark Mode and automatic reading bookmark sync"
+        ]
+      },
+      "category": "islamic-lifestyle",
+      "packageName": "com.moaz.zad.muslim",
+      "iconUrl": "https://images.unsplash.com/photo-1609599006353-e629aaabfeae?auto=format&fit=crop&w=256&q=80",
+      "bannerUrl": "https://images.unsplash.com/photo-1542816417-0983c9c9ad53?auto=format&fit=crop&w=1200&q=80",
+      "screenshots": [
+        "https://images.unsplash.com/photo-1584281729288-89fa2f3327d4?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1609599006353-e629aaabfeae?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1564769625905-50e93615e769?auto=format&fit=crop&w=800&q=80"
+      ],
+      "githubUrl": "https://github.com/moaz-elshazly/zad-muslim-android",
+      "playStoreUrl": "https://play.google.com/store/apps/details?id=com.moaz.zad.muslim",
+      "status": "published",
+      "isFeatured": true,
+      "rating": 4.9,
+      "ratingCount": 1840,
+      "totalDownloads": 54203,
+      "currentVersion": "v3.2.0",
+      "minAndroid": "Android 8.0 (API 26)",
+      "tags": [
+        "Quran",
+        "Azkar",
+        "Prayer Times",
+        "Jetpack Compose",
+        "Offline"
+      ],
+      "createdAt": "2025-01-10T10:00:00Z",
+      "updatedAt": "2026-09-15T14:30:00Z",
+      "versions": [
+        {
+          "id": "v_zad_320",
+          "versionName": "v3.2.0",
+          "versionCode": 32,
+          "apkUrl": "/uploads/apk/zad-muslim-v3.2.0.apk",
+          "apkFileName": "zad-muslim-v3.2.0.apk",
+          "apkSize": "28.4 MB",
+          "apkSizeBytes": 29779520,
+          "minSdk": "Android 8.0 (API 26)",
+          "targetSdk": "Android 14 (API 34)",
+          "sha256": "a38f7d9c42b10e5e84a26189cfb40398dc371b86e2418e9f268b812f8623ad1e",
+          "releaseNotes": {
+            "ar": "تحديث رئيسي: تحسين استهلاك البطارية أثناء تنبيهات الأذان، إضافة تفسير السعدي كاملاً، وتحسين سرعة فتح المصحف.",
+            "en": "Major Update: Battery optimization during background Adhan alerts, integrated full Al-Saadi Tafseer, and 40% faster startup time."
+          },
+          "downloadsCount": 38103,
+          "releasedAt": "2026-09-15T14:30:00Z",
+          "isLatest": true
+        },
+        {
+          "id": "v_zad_310",
+          "versionName": "v3.1.0",
+          "versionCode": 31,
+          "apkUrl": "/uploads/apk/zad-muslim-v3.1.0.apk",
+          "apkFileName": "zad-muslim-v3.1.0.apk",
+          "apkSize": "27.1 MB",
+          "apkSizeBytes": 28416409,
+          "minSdk": "Android 8.0 (API 26)",
+          "targetSdk": "Android 14 (API 34)",
+          "sha256": "92b45e7f12a394b087e5cc2817d23a4192b1a23863417e8293781bcf7409cfa3",
+          "releaseNotes": {
+            "ar": "إضافة بوصلة القبلة التفاعلية ثلاثية الأبعاد، وتصحيح طفيف في توقيت الفجر لبعض المناطق الجغرافية.",
+            "en": "Added interactive 3D Qibla compass view, adjusted Fajr calculation algorithm for specific latitudes."
+          },
+          "downloadsCount": 16100,
+          "releasedAt": "2026-05-20T11:00:00Z",
+          "isLatest": false
+        }
+      ]
+    },
+    {
+      "id": "app_2",
+      "slug": "novatask-smart-habits",
+      "title": {
+        "ar": "نوفا تاسك برو — إدارة المهام والعادات الذكية",
+        "en": "NovaTask Pro — Smart Habit & Task Tracker"
+      },
+      "tagline": {
+        "ar": "تطبيق تنظيم الوقت ورفع الإنتاجية بتقنية بومودورو والويدجت التفاعلي",
+        "en": "Offline-first productivity engine with Pomodoro timer, habit streaks & widgets"
+      },
+      "description": {
+        "ar": "نوفا تاسك برو هو الأداة المثالية لزيادة إنتاجيتك وتنظيم روتينك اليومي. مبني وفق معمارية Clean Architecture مع Room Database لدعم العمل دون اتصال بالإنترنت ومزامنة فورية. يشتمل على مؤقت بومودورو مدمج، تحليلات مرئية لعاداتك اليومية، وإشعارات ذكية.",
+        "en": "NovaTask Pro is engineered for developers, students, and professionals striving for peak personal efficiency. Built with Kotlin Coroutines and Room DB for 100% offline reliability. Includes a customizable Pomodoro focus timer, streak visualizer, interactive home-screen widgets, and detailed productivity insights."
+      },
+      "features": {
+        "ar": [
+          "إدارة مهام سريعة مع فئات وأولويات ملونة",
+          "مؤقت بومودورو مدمج مع أصوات تركيز طبيعية",
+          "تتبع العادات اليومية مع سلاسل النجاح (Streaks)",
+          "ويدجت للشاشة الرئيسية (App Widgets) تفاعلية",
+          "قاعدة بيانات محلية سريعة وخاصة بالكامل",
+          "تصدير واستيراد النسخ الاحتياطية بسهولة"
+        ],
+        "en": [
+          "Rapid task creation with smart prioritization and color tags",
+          "Integrated Pomodoro focus timer with ambient white noise",
+          "Daily habit tracker with streak analytics and milestone badges",
+          "Interactive Glance home screen widgets for instant actions",
+          "Zero trackers, 100% private local Room database storage",
+          "Encrypted local backup and restore export capabilities"
+        ]
+      },
+      "category": "productivity",
+      "packageName": "com.moaz.novatask.pro",
+      "iconUrl": "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?auto=format&fit=crop&w=256&q=80",
+      "bannerUrl": "https://images.unsplash.com/photo-1507925921958-8a62f3d1a50d?auto=format&fit=crop&w=1200&q=80",
+      "screenshots": [
+        "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&q=80"
+      ],
+      "githubUrl": "https://github.com/moaz-elshazly/novatask-pro",
+      "status": "published",
+      "isFeatured": true,
+      "rating": 4.8,
+      "ratingCount": 920,
+      "totalDownloads": 31200,
+      "currentVersion": "v2.0.4",
+      "minAndroid": "Android 9.0 (API 28)",
+      "tags": [
+        "Productivity",
+        "Pomodoro",
+        "Habits",
+        "Room DB",
+        "Material You"
+      ],
+      "createdAt": "2025-03-01T12:00:00Z",
+      "updatedAt": "2026-08-10T16:00:00Z",
+      "versions": [
+        {
+          "id": "v_nova_204",
+          "versionName": "v2.0.4",
+          "versionCode": 24,
+          "apkUrl": "/uploads/apk/novatask-v2.0.4.apk",
+          "apkFileName": "novatask-v2.0.4.apk",
+          "apkSize": "16.8 MB",
+          "apkSizeBytes": 17616076,
+          "minSdk": "Android 9.0 (API 28)",
+          "targetSdk": "Android 14 (API 34)",
+          "sha256": "c4e51928df73a4b087e5cc2817d23a4192b1a23863417e8293781bcf7409cfa3",
+          "releaseNotes": {
+            "ar": "إضافة ويدجت جديد لسطح المكتب يدعم أندرويد 14، وتحسين سرعة استجابة مؤقت التركيز.",
+            "en": "Added Android 14 dynamic Glance widgets, fine-tuned Pomodoro background notification audio."
+          },
+          "downloadsCount": 31200,
+          "releasedAt": "2026-08-10T16:00:00Z",
+          "isLatest": true
+        }
+      ]
+    },
+    {
+      "id": "app_3",
+      "slug": "speedcast-audio-studio",
+      "title": {
+        "ar": "سبيد كاست — مسجل ومحرر الصوت الاحترافي",
+        "en": "SpeedCast — Hi-Res Audio Studio & Editor"
+      },
+      "tagline": {
+        "ar": "تسجيل استوديو نقي 24-bit مع تقليل الضوضاء الذكي وتحرير الموجات الصوتية",
+        "en": "Studio grade 24-bit audio recorder with active noise suppression and waveform cut"
+      },
+      "description": {
+        "ar": "تطبيق صوتي هندسي تم بناؤه لتلبية احتياجات صانعي المحتوى والمحاضرين والموسيقيين. يتيح التسجيل بصيغ غير مضغوطة (WAV 48kHz / 24-bit)، عزل الضوضاء الخلفية بتقنية معالجة الإشارات، وتحرير المقاطع الصوتية مباشرة من الشاشة.",
+        "en": "SpeedCast transforms your Android smartphone into a broadcast-quality recording suite. Features lossless WAV/AAC encoding up to 192kHz sample rates, real-time waveform visualization via Canvas, non-destructive trimming, pitch adjustment, and automated silence removal."
+      },
+      "features": {
+        "ar": [
+          "تسجيل عالي الدقة بدون فقدان جودة حتى 48kHz / 24-bit",
+          "عرض الموجات الصوتية الحية (Live Waveform Visualizer)",
+          "محرر قص ودمج وقص الأجزاء غير المرغوبة بسهولة",
+          "فلتر ذكي لإلغاء ضوضاء الرياح والميكروفون",
+          "العمل في الخلفية مع شريط تحكم سريع في الإشعارات",
+          "تنظيم التسجيلات وتصنيفها مع وسوم ملونة"
+        ],
+        "en": [
+          "Lossless studio recording in WAV / AAC / FLAC formats",
+          "Live interactive waveform rendering with millisecond precision",
+          "Non-destructive audio cutter, merger, and fade-in/out effects",
+          "DSP-based noise gate and background ambient cancellation",
+          "Robust background foreground service with lockscreen controls",
+          "Folder organization, tagging, and one-tap cloud share"
+        ]
+      },
+      "category": "audio-media",
+      "packageName": "com.moaz.speedcast.audio",
+      "iconUrl": "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?auto=format&fit=crop&w=256&q=80",
+      "bannerUrl": "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=1200&q=80",
+      "screenshots": [
+        "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=80"
+      ],
+      "githubUrl": "https://github.com/moaz-elshazly/speedcast-android",
+      "status": "published",
+      "isFeatured": false,
+      "rating": 4.7,
+      "ratingCount": 640,
+      "totalDownloads": 19450,
+      "currentVersion": "v1.5.1",
+      "minAndroid": "Android 8.0 (API 26)",
+      "tags": [
+        "Audio",
+        "Recorder",
+        "Studio",
+        "Waveform",
+        "NDK"
+      ],
+      "createdAt": "2025-06-15T09:00:00Z",
+      "updatedAt": "2026-07-01T10:00:00Z",
+      "versions": [
+        {
+          "id": "v_speed_151",
+          "versionName": "v1.5.1",
+          "versionCode": 15,
+          "apkUrl": "/uploads/apk/speedcast-v1.5.1.apk",
+          "apkFileName": "speedcast-v1.5.1.apk",
+          "apkSize": "22.1 MB",
+          "apkSizeBytes": 23173529,
+          "minSdk": "Android 8.0 (API 26)",
+          "targetSdk": "Android 14 (API 34)",
+          "sha256": "71c89012df73a4b087e5cc2817d23a4192b1a23863417e8293781bcf7409cfa3",
+          "releaseNotes": {
+            "ar": "دعم حفظ التسجيلات بصيغة FLAC غير المضغوطة، ومعالجة أسرع لقص المقاطع الطويلة.",
+            "en": "Added lossless FLAC container export and boosted audio waveform rendering performance by 2x."
+          },
+          "downloadsCount": 19450,
+          "releasedAt": "2026-07-01T10:00:00Z",
+          "isLatest": true
+        }
+      ]
+    },
+    {
+      "id": "app_4",
+      "slug": "cryptopulse-market-tracker",
+      "title": {
+        "ar": "كريبتو بلس — تحليلات وأسعار العملات المباشرة",
+        "en": "CryptoPulse — Real-Time Market Tracker"
+      },
+      "tagline": {
+        "ar": "متابعة حية للأسعار، شموع يابانية تفاعلية، وتنبيهات فورية لتقلبات السوق",
+        "en": "Live crypto tickers, interactive candlestick charts, and instant price alerts"
+      },
+      "description": {
+        "ar": "تطبيق مالي سريع وخفيف يربطك مباشرة بأسواق العملات الرقمية عبر بروتوكول WebSockets. يعرض رسوماً بيانية تفاعلية دقيقة، وتنبيهات فورية عند وصول العملة لسعر محدد، مع حاسبة أرباح ومحفظة شخصية بدون الحاجة لمشاركة أي مفاتيح خاصة.",
+        "en": "CryptoPulse delivers real-time market telemetry powered by ultra-low-latency WebSockets. Analyze market swings with smooth pinch-to-zoom candlestick charts, set hardware-level price alert alarms, and track your spot portfolio with 100% on-device privacy."
+      },
+      "features": {
+        "ar": [
+          "أسعار لحظية محدثة ثانية بثانية عبر WebSockets",
+          "رسوم بيانية تفاعلية متطورة (Candlesticks & Volumes)",
+          "تنبيهات فورية عند صعود أو هبوط السعر المبرمج",
+          "محفظة تجريبية لتتبع الأرباح والخسائر بسهولة",
+          "أخبار الأسواق العالمية مترجمة ومحدثة على مدار الساعة",
+          "استهلاك فائق الانخفاض للبيانات والبطارية"
+        ],
+        "en": [
+          "Real-time sub-second price streaming over WebSockets",
+          "Interactive candlestick charting with multiple timeframe intervals",
+          "Reliable local price limit trigger alerts with push alarms",
+          "Spot portfolio balance manager with PnL calculation",
+          "Curated breaking crypto news feed with sentiment index",
+          "Zero account needed, zero analytics data transmitted"
+        ]
+      },
+      "category": "finance",
+      "packageName": "com.moaz.cryptopulse",
+      "iconUrl": "https://images.unsplash.com/photo-1621416894569-0f39ed31d247?auto=format&fit=crop&w=256&q=80",
+      "bannerUrl": "https://images.unsplash.com/photo-1642543492481-44e81e3914a7?auto=format&fit=crop&w=1200&q=80",
+      "screenshots": [
+        "https://images.unsplash.com/photo-1621416894569-0f39ed31d247?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1642543492481-44e81e3914a7?auto=format&fit=crop&w=800&q=80"
+      ],
+      "githubUrl": "https://github.com/moaz-elshazly/cryptopulse-android",
+      "status": "published",
+      "isFeatured": false,
+      "rating": 4.6,
+      "ratingCount": 380,
+      "totalDownloads": 9800,
+      "currentVersion": "v1.2.0",
+      "minAndroid": "Android 8.0 (API 26)",
+      "tags": [
+        "Finance",
+        "Crypto",
+        "Charts",
+        "WebSocket",
+        "Ktor"
+      ],
+      "createdAt": "2025-08-10T14:00:00Z",
+      "updatedAt": "2026-06-15T08:00:00Z",
+      "versions": [
+        {
+          "id": "v_crypto_120",
+          "versionName": "v1.2.0",
+          "versionCode": 12,
+          "apkUrl": "/uploads/apk/cryptopulse-v1.2.0.apk",
+          "apkFileName": "cryptopulse-v1.2.0.apk",
+          "apkSize": "19.3 MB",
+          "apkSizeBytes": 20237516,
+          "minSdk": "Android 8.0 (API 26)",
+          "targetSdk": "Android 14 (API 34)",
+          "sha256": "55d91823df73a4b087e5cc2817d23a4192b1a23863417e8293781bcf7409cfa3",
+          "releaseNotes": {
+            "ar": "إضافة مؤشرات التحليل الفني RSI وMACD، ودعم العملات المحلية الإضافية.",
+            "en": "Added RSI and MACD technical indicators to charts, updated currency conversion rates."
+          },
+          "downloadsCount": 9800,
+          "releasedAt": "2026-06-15T08:00:00Z",
+          "isLatest": true
+        }
+      ]
+    },
+    {
+      "id": "app_5",
+      "slug": "quickshare-local-drop",
+      "title": {
+        "ar": "كويك شير — نقل الملفات السريع بدون إنترنت",
+        "en": "QuickShare — P2P Local Drop & Transfer"
+      },
+      "tagline": {
+        "ar": "نقل صور وفيديوهات وملفات ضخمة عبر شبكة الواي فاي المحلية بسرعة تصل إلى 80MB/s",
+        "en": "Blazing fast direct peer-to-peer Wi-Fi transfer with zero internet dependency"
+      },
+      "description": {
+        "ar": "أداة نظام فائقة السرعة لمشاركة الملفات والتطبيقات والصور بين هواتف أندرويد والحواسب المتصلة بنفس شبكة الواي فاي المحلية بدون استهلاك باقة الإنترنت. مشفرة بالكامل، وبدون قيود على حجم الملفات.",
+        "en": "QuickShare establishes a high-speed direct peer-to-peer Wi-Fi hotspot or local subnet bridge between Android devices and PCs. Reach transfer speeds exceeding 80 MB/s without eating into your cellular data, with end-to-end transport layer security."
+      },
+      "features": {
+        "ar": [
+          "سرعة نقل هائلة تصل إلى 80 ميجابايت في الثانية",
+          "لا يتطلب اتصالاً بالإنترنت ولا يستهلك باقة البيانات",
+          "إمكانية إرسال التطبيقات المثبتة وملفات APK مباشرة",
+          "واجهة ويب مدمجة لنقل الملفات مع الكمبيوتر بنقرة واحدة",
+          "تشفير محلي مباشر وحماية ضد الاختراق",
+          "استئناف النقل التلقائي في حال انقطاع الاتصال"
+        ],
+        "en": [
+          "Blistering local Wi-Fi direct speeds up to 80 MB/sec",
+          "Zero cellular data usage, completely offline transport",
+          "Direct APK application backup and transfer capability",
+          "Embedded lightweight Web server for instant PC file drop",
+          "TLS encrypted local packets and QR-code pairing",
+          "Automatic chunked transfer resume on network hiccups"
+        ]
+      },
+      "category": "utilities",
+      "packageName": "com.moaz.quickshare.local",
+      "iconUrl": "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=256&q=80",
+      "bannerUrl": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80",
+      "screenshots": [
+        "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=800&q=80"
+      ],
+      "githubUrl": "https://github.com/moaz-elshazly/quickshare-android",
+      "status": "published",
+      "isFeatured": false,
+      "rating": 4.8,
+      "ratingCount": 510,
+      "totalDownloads": 10200,
+      "currentVersion": "v2.4.0",
+      "minAndroid": "Android 7.0 (API 24)",
+      "tags": [
+        "Utilities",
+        "Wi-Fi Direct",
+        "File Sharing",
+        "P2P",
+        "Fast"
+      ],
+      "createdAt": "2025-04-20T10:00:00Z",
+      "updatedAt": "2026-05-10T12:00:00Z",
+      "versions": [
+        {
+          "id": "v_quick_240",
+          "versionName": "v2.4.0",
+          "versionCode": 24,
+          "apkUrl": "/uploads/apk/quickshare-v2.4.0.apk",
+          "apkFileName": "quickshare-v2.4.0.apk",
+          "apkSize": "14.5 MB",
+          "apkSizeBytes": 15204352,
+          "minSdk": "Android 7.0 (API 24)",
+          "targetSdk": "Android 14 (API 34)",
+          "sha256": "44e81928df73a4b087e5cc2817d23a4192b1a23863417e8293781bcf7409cfa3",
+          "releaseNotes": {
+            "ar": "تحسين بروتوكول المصافحة لشبكات 5GHz، وإصلاح مشكلة التوقف عند نقل المجلدات الكبيرة.",
+            "en": "Optimized 5GHz Wi-Fi socket handshake and fixed nested folder transfer memory consumption."
+          },
+          "downloadsCount": 10200,
+          "releasedAt": "2026-05-10T12:00:00Z",
+          "isLatest": true
+        }
+      ]
+    }
+  ],
+  "downloads": [
+    {
+      "id": "dl_1791403165537_feutf",
+      "appId": "app_1",
+      "versionId": "v_zad_320",
+      "timestamp": "2026-10-07T19:59:25.537Z",
+      "ipHash": "f528764d62",
+      "userAgent": "curl/7.88.1"
+    },
+    {
+      "id": "dl_1791404253219_pkvyj",
+      "appId": "app_1",
+      "versionId": "v_zad_320",
+      "timestamp": "2026-10-07T20:17:33.219Z",
+      "ipHash": "f528764d62",
+      "userAgent": "curl/7.88.1"
+    },
+    {
+      "id": "dl_1791405442416_dmzk8",
+      "appId": "app_1",
+      "versionId": "v_zad_320",
+      "timestamp": "2026-10-07T20:37:22.416Z",
+      "ipHash": "f528764d62",
+      "userAgent": "node"
+    }
+  ],
+  "messages": [
+    {
+      "id": "msg_1",
+      "name": "أحمد محمود",
+      "email": "ahmed.m@example.com",
+      "subject": "استفسار عن تطوير تطبيق أندرويد لمتجر إلكتروني",
+      "message": "السلام عليكم يا بشمهندس معاذ، ما شاء الله تطبيقاتك ممتازة جداً. أود استشارتك في مشروع تطوير تطبيق أندرويد متكامل باستخدام Jetpack Compose مع ربطه بمتجر شوبيفاي.",
+      "createdAt": "2026-10-01T14:20:00Z",
+      "status": "read"
+    }
+  ],
+  "settings": {
+    "siteLogoUrl": "/logo.svg",
+    "siteTitleAr": "المهندس معاذ الشاذلي",
+    "siteTitleEn": "Eng. Moaz El Shazly",
+    "taglineAr": "المنصة الرسمية لتطبيقات أندرويد",
+    "taglineEn": "Android Applications Showcase & APK Hub",
+    "directDownloadEnabled": true
+  }
+}

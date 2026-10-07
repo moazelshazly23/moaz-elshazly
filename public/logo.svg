@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <linearGradient id="primaryGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10B981" />
+      <stop offset="50%" stop-color="#059669" />
+      <stop offset="100%" stop-color="#0284C7" />
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#34D399" />
+      <stop offset="100%" stop-color="#38BDF8" />
+    </linearGradient>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F172A" />
+      <stop offset="100%" stop-color="#020617" />
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="12" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Outer Rounded Squircle / Shield -->
+  <rect x="24" y="24" width="464" height="464" rx="112" fill="url(#bgGrad)" stroke="url(#primaryGrad)" stroke-width="8" />
+  
+  <!-- Subtle Circuit Grid Accents -->
+  <path d="M70 180 h40 l30 30" stroke="#10B981" stroke-opacity="0.25" stroke-width="3" fill="none" stroke-linecap="round" />
+  <circle cx="140" cy="210" r="4" fill="#10B981" fill-opacity="0.4" />
+  <path d="M442 180 h-40 l-30 30" stroke="#38BDF8" stroke-opacity="0.25" stroke-width="3" fill="none" stroke-linecap="round" />
+  <circle cx="372" cy="210" r="4" fill="#38BDF8" fill-opacity="0.4" />
+  <path d="M256 420 v30" stroke="#10B981" stroke-opacity="0.3" stroke-width="3" fill="none" stroke-linecap="round" />
+
+  <!-- Inner Ambient Glow Behind Robot Head -->
+  <circle cx="256" cy="210" r="110" fill="#10B981" fill-opacity="0.15" filter="url(#glow)" />
+
+  <!-- Android Antennae -->
+  <line x1="200" y1="125" x2="175" y2="85" stroke="url(#accentGrad)" stroke-width="12" stroke-linecap="round" />
+  <line x1="312" y1="125" x2="337" y2="85" stroke="url(#accentGrad)" stroke-width="12" stroke-linecap="round" />
+  
+  <!-- Antenna tips -->
+  <circle cx="175" cy="85" r="7" fill="#34D399" />
+  <circle cx="337" cy="85" r="7" fill="#38BDF8" />
+
+  <!-- Android Robot Head Dome -->
+  <path d="M160 195 A96 96 0 0 1 352 195 Z" fill="url(#primaryGrad)" />
+  
+  <!-- Android Robot Eyes -->
+  <circle cx="206" cy="165" r="9" fill="#0F172A" />
+  <circle cx="206" cy="165" r="4" fill="#E2E8F0" />
+  <circle cx="306" cy="165" r="9" fill="#0F172A" />
+  <circle cx="306" cy="165" r="4" fill="#E2E8F0" />
+
+  <!-- Monogram "M" Chestplate Body (for Moaz / Mobile) -->
+  <g filter="url(#glow)">
+    <!-- Stylized Modern 'M' polygon with code brackets -->
+    <path d="M152 225 L180 225 L256 315 L332 225 L360 225 L360 375 L316 375 L316 285 L256 355 L196 285 L196 375 L152 375 Z" fill="url(#accentGrad)" />
+  </g>
+
+  <!-- Code Symbol Brackets < > for Engineering Core -->
+  <path d="M125 285 L105 305 L125 325" stroke="#34D399" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+  <path d="M387 285 L407 305 L387 325" stroke="#38BDF8" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+
+  <!-- Bottom Tech Dot Accent -->
+  <circle cx="256" cy="405" r="5" fill="#34D399" />
+  <circle cx="236" cy="405" r="3" fill="#10B981" fill-opacity="0.6" />
+  <circle cx="276" cy="405" r="3" fill="#38BDF8" fill-opacity="0.6" />
+</svg>

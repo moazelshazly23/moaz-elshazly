@@ -1,0 +1,6 @@
+{
+  "name": "Eng. Moaz El Shazly — Android Apps Hub",
+  "description": "Official showcase and distribution platform for Android applications by Eng. Moaz El Shazly with APK downloads, release tracking, and admin dashboard.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
