@@ -1,16 +1,14 @@
 import React from 'react';
 import { useLanguage } from '../context/LanguageContext.tsx';
 import { DeveloperProfile } from '../types/index.ts';
-import {
-  Search,
-  Download,
-  Code2,
-  Users,
-  Award,
-  Sparkles,
-  Layers,
-  ArrowDownCircle,
-} from 'lucide-react';
+import Search from 'lucide-react/dist/esm/icons/search.js';
+import Download from 'lucide-react/dist/esm/icons/download.js';
+import Code2 from 'lucide-react/dist/esm/icons/code-xml.js';
+import Users from 'lucide-react/dist/esm/icons/users.js';
+import Award from 'lucide-react/dist/esm/icons/award.js';
+import Sparkles from 'lucide-react/dist/esm/icons/sparkles.js';
+import Layers from 'lucide-react/dist/esm/icons/layers.js';
+import ArrowDownCircle from 'lucide-react/dist/esm/icons/circle-arrow-down.js';
 
 interface HeroProps {
   developer: DeveloperProfile | null;
@@ -35,7 +33,7 @@ export const Hero: React.FC<HeroProps> = ({
 }) => {
   const { language, t } = useLanguage();
 
-  const totalDownloads = developer?.stats.totalDownloads || 124850;
+  const totalDownloads = developer?.stats.totalDownloads || 0;
   const totalApps = developer?.stats.totalApps || 5;
   const experienceYears = developer?.experienceYears || 6;
   const happyUsers = developer?.stats.happyUsers || '50K+';

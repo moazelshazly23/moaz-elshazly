@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { Suspense, useState, useEffect } from 'react';
 import { LanguageProvider, useLanguage } from './context/LanguageContext.tsx';
 import { ThemeProvider } from './context/ThemeContext.tsx';
 import { AuthProvider, useAuth } from './context/AuthContext.tsx';
@@ -10,7 +10,7 @@ import { AppDetailModal } from './components/AppDetailModal.tsx';
 import { DeveloperSection } from './components/DeveloperSection.tsx';
 import { ContactModal } from './components/ContactModal.tsx';
 import { AdminLoginModal } from './components/AdminLoginModal.tsx';
-import { AdminDashboard } from './components/AdminDashboard.tsx';
+
 import { Footer } from './components/Footer.tsx';
 import { api } from './services/api.ts';
 import {
@@ -20,15 +20,15 @@ import {
   DeveloperProfile,
   SiteSettings,
 } from './types/index.ts';
-import {
-  Smartphone,
-  Layers,
-  ArrowUpDown,
-  Search,
-  Sparkles,
-  Loader2,
-  AlertCircle,
-} from 'lucide-react';
+import Smartphone from 'lucide-react/dist/esm/icons/smartphone.js';
+import Layers from 'lucide-react/dist/esm/icons/layers.js';
+import ArrowUpDown from 'lucide-react/dist/esm/icons/arrow-up-down.js';
+import Search from 'lucide-react/dist/esm/icons/search.js';
+import Sparkles from 'lucide-react/dist/esm/icons/sparkles.js';
+import Loader2 from 'lucide-react/dist/esm/icons/loader-circle.js';
+import AlertCircle from 'lucide-react/dist/esm/icons/circle-alert.js';
+
+const AdminDashboard = React.lazy(() => import('./components/AdminDashboard.tsx').then((module) => ({ default: module.AdminDashboard })));
 
 function MainApp() {
   const { language, t } = useLanguage();
@@ -40,6 +40,7 @@ function MainApp() {
   const [developer, setDeveloper] = useState<DeveloperProfile | null>(null);
   const [siteSettings, setSiteSettings] = useState<SiteSettings | null>(null);
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState<string | null>(null);
 
   // Filters & Search
   const [searchQuery, setSearchQuery] = useState('');
@@ -62,14 +63,16 @@ function MainApp() {
         api.getApps({ sort: sortBy }),
         api.getCategories(),
         api.getDeveloper(),
-        api.getSettings().catch(() => null),
+        api.getSettings(),
       ]);
+      setLoadError(null);
       setApps(appsData);
       setCategories(catsData);
       setDeveloper(devData);
       if (settsData) setSiteSettings(settsData);
     } catch (err) {
       console.error('Failed to load platform data:', err);
+      setLoadError(err instanceof Error ? err.message : 'تعذر الاتصال بالخادم');
     } finally {
       setLoading(false);
     }
@@ -135,6 +138,18 @@ function MainApp() {
     return true;
   });
 
+  if (loadError && !loading) {
+    return (
+      <main className="min-h-screen grid place-items-center bg-slate-950 text-white p-6" dir={language === 'ar' ? 'rtl' : 'ltr'}>
+        <section className="max-w-md text-center rounded-3xl border border-slate-800 bg-slate-900 p-8">
+          <AlertCircle className="w-10 h-10 text-amber-400 mx-auto mb-4" />
+          <h1 className="text-xl font-bold mb-2">تعذر الاتصال بالخادم</h1>
+          <p className="text-sm text-slate-300 mb-6">تحقق من اتصال الإنترنت ثم أعد المحاولة. لم يتم تحميل بيانات قديمة.</p>
+          <button onClick={loadData} className="px-5 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 font-bold">إعادة المحاولة</button>
+        </section>
+      </main>
+    );
+  }
   return (
     <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors">
       
@@ -356,11 +371,13 @@ function MainApp() {
       />
 
       {/* Central Admin Dashboard */}
-      <AdminDashboard
-        isOpen={isAdminDashboardOpen}
-        onClose={() => setIsAdminDashboardOpen(false)}
-        onRefreshData={loadData}
-      />
+      <Suspense fallback={<div className="fixed inset-0 z-40 grid place-items-center bg-slate-950/70 text-emerald-400">جاري تحميل لوحة التحكم...</div>}>
+        <AdminDashboard
+          isOpen={isAdminDashboardOpen}
+          onClose={() => setIsAdminDashboardOpen(false)}
+          onRefreshData={loadData}
+        />
+      </Suspense>
 
     </div>
   );

@@ -33,10 +33,11 @@ def get_apps(
         except Exception:
             is_admin = False
 
-    # Status filtering
-    if status:
-        apps = [a for a in apps if a.get("status") == status]
-    elif not is_admin:
+    # Public readers can never expose drafts by passing a status query parameter.
+    if is_admin:
+        if status:
+            apps = [a for a in apps if a.get("status") == status]
+    else:
         apps = [a for a in apps if a.get("status") == "published"]
 
     # Category filtering
@@ -81,7 +82,7 @@ def get_apps(
 def get_app(slug_or_id: str):
     db = get_db()
     apps = db.get("apps", [])
-    target = next((a for a in apps if a.get("slug") == slug_or_id or a.get("id") == slug_or_id), None)
+    target = next((a for a in apps if (a.get("slug") == slug_or_id or a.get("id") == slug_or_id) and a.get("status") == "published"), None)
 
     if not target:
         raise HTTPException(
@@ -145,7 +146,7 @@ def create_app(payload: Dict[str, Any], current_user: dict = Depends(get_current
         "features": payload.get("features") or {"ar": [], "en": []},
         "category": payload.get("category") or "utilities",
         "packageName": payload.get("packageName") or f"com.moaz.{slug.replace('-', '')}",
-        "iconUrl": payload.get("iconUrl") or "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=256&q=80",
+        "iconUrl": payload.get("iconUrl") or "",
         "bannerUrl": payload.get("bannerUrl") or "",
         "screenshots": payload.get("screenshots") or [],
         "githubUrl": payload.get("githubUrl") or "",
@@ -191,7 +192,10 @@ def update_app(id: str, payload: Dict[str, Any], current_user: dict = Depends(ge
 @router.delete("/apps/{id}")
 def delete_app(id: str, current_user: dict = Depends(get_current_admin)):
     db = get_db()
+    original_count = len(db.get("apps", []))
     db["apps"] = [a for a in db.get("apps", []) if a.get("id") != id]
+    if len(db["apps"]) == original_count:
+        raise HTTPException(status_code=404, detail="App not found")
     save_db(db)
     return {"success": True}
 
@@ -287,7 +291,7 @@ def download_app(
 ):
     db = get_db()
     apps = db.get("apps", [])
-    app = next((a for a in apps if a.get("id") == id or a.get("slug") == id), None)
+    app = next((a for a in apps if (a.get("id") == id or a.get("slug") == id) and a.get("status") == "published"), None)
 
     if not app:
         raise HTTPException(

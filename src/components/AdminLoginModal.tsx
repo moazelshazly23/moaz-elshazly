@@ -2,14 +2,12 @@ import React, { useState } from 'react';
 import { useLanguage } from '../context/LanguageContext.tsx';
 import { useAuth } from '../context/AuthContext.tsx';
 import { api } from '../services/api.ts';
-import {
-  X,
-  ShieldCheck,
-  Lock,
-  Mail,
-  Loader2,
-  KeyRound,
-} from 'lucide-react';
+import X from 'lucide-react/dist/esm/icons/x.js';
+import ShieldCheck from 'lucide-react/dist/esm/icons/shield-check.js';
+import Lock from 'lucide-react/dist/esm/icons/lock.js';
+import Mail from 'lucide-react/dist/esm/icons/mail.js';
+import Loader2 from 'lucide-react/dist/esm/icons/loader-circle.js';
+import KeyRound from 'lucide-react/dist/esm/icons/key-round.js';
 
 interface AdminLoginModalProps {
   isOpen: boolean;

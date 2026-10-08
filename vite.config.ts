@@ -5,10 +5,13 @@ import {defineConfig} from 'vite';
 
 export default defineConfig(() => {
   return {
+    base: '/moaz-elshazly/',
+    build: { emptyOutDir: false },
     plugins: [react(), tailwindcss()],
     resolve: {
+      preserveSymlinks: true,
       alias: {
-        '@': path.resolve(__dirname, '.'),
+        '@': path.resolve(import.meta.dirname, '.'),
       },
     },
     server: {

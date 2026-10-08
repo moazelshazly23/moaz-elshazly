@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLanguage } from '../context/LanguageContext.tsx';
 import { useAuth } from '../context/AuthContext.tsx';
-import { api } from '../services/api.ts';
+import { api, getAssetUrl } from '../services/api.ts';
 import {
   AppItem,
   AppVersion,
@@ -9,6 +9,7 @@ import {
   AnalyticsData,
   ContactMessage,
   DeveloperProfile,
+  SuggestionItem,
 } from '../types/index.ts';
 import { DashboardWidget } from './DashboardWidget.tsx';
 import {
@@ -24,38 +25,36 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from 'recharts';
-import {
-  X,
-  LayoutDashboard,
-  Smartphone,
-  Upload,
-  Plus,
-  Trash2,
-  Edit,
-  Layers,
-  MessageSquare,
-  Settings,
-  TrendingUp,
-  Download,
-  ShieldCheck,
-  Star,
-  Search,
-  CheckCircle2,
-  FileCode,
-  Image as ImageIcon,
-  Loader2,
-  Check,
-  User,
-  FolderPlus,
-  Globe,
-  Lock,
-  PlusCircle,
-  Briefcase,
-  Sliders,
-  UserCheck,
-  Code,
-  Share2,
-} from 'lucide-react';
+import X from 'lucide-react/dist/esm/icons/x.js';
+import LayoutDashboard from 'lucide-react/dist/esm/icons/layout-dashboard.js';
+import Smartphone from 'lucide-react/dist/esm/icons/smartphone.js';
+import Upload from 'lucide-react/dist/esm/icons/upload.js';
+import Plus from 'lucide-react/dist/esm/icons/plus.js';
+import Trash2 from 'lucide-react/dist/esm/icons/trash-2.js';
+import Edit from 'lucide-react/dist/esm/icons/square-pen.js';
+import Layers from 'lucide-react/dist/esm/icons/layers.js';
+import MessageSquare from 'lucide-react/dist/esm/icons/message-square.js';
+import Settings from 'lucide-react/dist/esm/icons/settings.js';
+import TrendingUp from 'lucide-react/dist/esm/icons/trending-up.js';
+import Download from 'lucide-react/dist/esm/icons/download.js';
+import ShieldCheck from 'lucide-react/dist/esm/icons/shield-check.js';
+import Star from 'lucide-react/dist/esm/icons/star.js';
+import Search from 'lucide-react/dist/esm/icons/search.js';
+import CheckCircle2 from 'lucide-react/dist/esm/icons/circle-check.js';
+import FileCode from 'lucide-react/dist/esm/icons/file-code.js';
+import ImageIcon from 'lucide-react/dist/esm/icons/image.js';
+import Loader2 from 'lucide-react/dist/esm/icons/loader-circle.js';
+import Check from 'lucide-react/dist/esm/icons/check.js';
+import User from 'lucide-react/dist/esm/icons/user.js';
+import FolderPlus from 'lucide-react/dist/esm/icons/folder-plus.js';
+import Globe from 'lucide-react/dist/esm/icons/globe.js';
+import Lock from 'lucide-react/dist/esm/icons/lock.js';
+import PlusCircle from 'lucide-react/dist/esm/icons/circle-plus.js';
+import Briefcase from 'lucide-react/dist/esm/icons/briefcase.js';
+import Sliders from 'lucide-react/dist/esm/icons/sliders-vertical.js';
+import UserCheck from 'lucide-react/dist/esm/icons/user-check.js';
+import Code from 'lucide-react/dist/esm/icons/code.js';
+import Share2 from 'lucide-react/dist/esm/icons/share-2.js';
 
 interface AdminDashboardProps {
   isOpen: boolean;
@@ -71,13 +70,14 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   const { language, t } = useLanguage();
   const { admin, updateAdminUser } = useAuth();
 
-  const [activeTab, setActiveTab] = useState<'overview' | 'apps' | 'new-app' | 'new-version' | 'categories' | 'developer' | 'messages' | 'settings'>('overview');
+  const [activeTab, setActiveTab] = useState<'overview' | 'apps' | 'new-app' | 'new-version' | 'categories' | 'developer' | 'messages' | 'suggestions' | 'settings'>('overview');
   
   // Data States
   const [analytics, setAnalytics] = useState<AnalyticsData | null>(null);
   const [apps, setApps] = useState<AppItem[]>([]);
   const [categories, setCategories] = useState<CategoryItem[]>([]);
   const [messages, setMessages] = useState<ContactMessage[]>([]);
+  const [suggestions, setSuggestions] = useState<SuggestionItem[]>([]);
   const [developer, setDeveloper] = useState<DeveloperProfile | null>(null);
   const [loading, setLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -134,7 +134,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   const [appFormDescEn, setAppFormDescEn] = useState('');
   const [appFormCategory, setAppFormCategory] = useState('utilities');
   const [appFormPackage, setAppFormPackage] = useState('com.moaz.myapp');
-  const [appFormIconUrl, setAppFormIconUrl] = useState('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=256&q=80');
+  const [appFormIconUrl, setAppFormIconUrl] = useState('');
   const [appFormScreenshots, setAppFormScreenshots] = useState<string[]>([]);
   const [appFormMinAndroid, setAppFormMinAndroid] = useState('Android 8.0 (API 26)');
   const [appFormIsFeatured, setAppFormIsFeatured] = useState(false);
@@ -192,26 +192,28 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   const fetchDashboardData = async () => {
     try {
       setLoading(true);
-      const [analyticsData, appsData, catsData, msgsData, devData, settsData] = await Promise.all([
+      const [analyticsData, appsData, catsData, msgsData, devData, settsData, suggestionsData] = await Promise.all([
         api.getAnalytics(),
         api.getApps({ sort: 'downloads' }),
         api.getCategories(),
         api.getMessages(),
         api.getDeveloper(),
         api.getSettings().catch(() => null),
+        api.getSuggestions(),
       ]);
       setAnalytics(analyticsData);
       setApps(appsData);
       setCategories(catsData);
       setMessages(msgsData);
+      setSuggestions(suggestionsData);
       setDeveloper(devData);
 
       if (settsData) {
         setSiteLogoUrl(settsData.siteLogoUrl || '/logo.svg');
-        setSiteTitleAr(settsData.siteTitleAr || 'المهندس معاذ الشاذلي');
-        setSiteTitleEn(settsData.siteTitleEn || 'Eng. Moaz El Shazly');
-        setSiteTaglineAr(settsData.taglineAr || 'المنصة الرسمية لتطبيقات أندرويد');
-        setSiteTaglineEn(settsData.taglineEn || 'Android Applications Showcase & APK Hub');
+        setSiteTitleAr(settsData.siteTitleAr || '');
+        setSiteTitleEn(settsData.siteTitleEn || '');
+        setSiteTaglineAr(settsData.taglineAr || '');
+        setSiteTaglineEn(settsData.taglineEn || '');
       }
 
       if (devData) {
@@ -828,6 +830,13 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
             <span>{t('tabMessages')} ({messages.filter(m => m.status === 'unread').length})</span>
           </button>
           <button
+            onClick={() => setActiveTab('suggestions')}
+            className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all cursor-pointer ${activeTab === 'suggestions' ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/20' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'}`}
+          >
+            <MessageSquare className="w-4 h-4" />
+            <span>الاقتراحات ({suggestions.filter(item => item.status === 'pending').length})</span>
+          </button>
+          <button
             onClick={() => setActiveTab('settings')}
             className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all cursor-pointer ${
               activeTab === 'settings'
@@ -1047,7 +1056,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                         <tr key={a.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-800/30">
                           <td className="p-4 flex items-center gap-3">
                             <img
-                              src={a.iconUrl}
+                              src={getAssetUrl(a.iconUrl)}
                               alt=""
                               className="w-10 h-10 rounded-xl object-cover shrink-0"
                             />
@@ -1217,7 +1226,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                 <label className="block text-xs font-bold mb-2">{t('uploadIcon')}</label>
                 <div className="flex items-center gap-4">
                   <div className="w-16 h-16 rounded-2xl overflow-hidden bg-slate-100 dark:bg-slate-800 border shrink-0">
-                    <img src={appFormIconUrl} alt="Icon preview" className="w-full h-full object-cover" />
+                    <img src={getAssetUrl(appFormIconUrl)} alt="Icon preview" className="w-full h-full object-cover" />
                   </div>
                   <input
                     type="file"
@@ -1241,7 +1250,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                 <div className="flex gap-2 overflow-x-auto pb-2">
                   {appFormScreenshots.map((url, i) => (
                     <div key={i} className="relative w-20 h-32 rounded-xl overflow-hidden shrink-0 border border-slate-200 dark:border-slate-800">
-                      <img src={url} alt="" className="w-full h-full object-cover" />
+                      <img src={getAssetUrl(url)} alt="" className="w-full h-full object-cover" />
                       <button
                         type="button"
                         onClick={() => setAppFormScreenshots(prev => prev.filter((_, idx) => idx !== i))}
@@ -1718,7 +1727,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                 <label className="block text-xs font-bold mb-3">الصورة الشخصية للمهندس (Avatar)</label>
                 <div className="flex flex-col sm:flex-row items-center gap-6">
                   <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl overflow-hidden bg-slate-100 dark:bg-slate-800 border-2 border-emerald-500/40 shadow-lg shrink-0">
-                    <img src={devAvatarUrl} alt="Developer Avatar" className="w-full h-full object-cover" />
+                    <img src={getAssetUrl(devAvatarUrl)} alt="Developer Avatar" className="w-full h-full object-cover" />
                   </div>
                   <div className="space-y-2 text-center sm:text-start flex-1">
                     <input
@@ -2040,6 +2049,23 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
             </div>
           )}
 
+          {activeTab === 'suggestions' && (
+            <div className="max-w-5xl mx-auto space-y-4">
+              <h3 className="text-lg font-black text-slate-900 dark:text-white">اقتراحات الزوار</h3>
+              {suggestions.length === 0 ? <p className="rounded-2xl bg-white dark:bg-slate-900 p-6 text-slate-500">لا توجد اقتراحات حتى الآن.</p> : suggestions.map((item) => (
+                <article key={item.id} className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 space-y-3">
+                  <div className="flex flex-wrap items-center justify-between gap-3"><strong>{item.type === 'edit' ? `اقتراح تعديل: ${item.app || ''}` : `اقتراح تطبيق: ${item.appName || ''}`}</strong><span className="text-xs text-slate-500">{item.status} · {new Date(item.createdAt).toLocaleString()}</span></div>
+                  <p className="text-sm text-slate-600 dark:text-slate-300 whitespace-pre-wrap">{item.suggestion || item.description || item.appUrl}</p>
+                  {item.details && <p className="text-sm text-slate-500">{item.details}</p>}
+                  <div className="flex flex-wrap gap-2">
+                    <button onClick={async () => { try { await api.updateSuggestion(item.id, 'approved'); await fetchDashboardData(); showToast('تم اعتماد الاقتراح'); } catch (error: any) { showToast(error.message, 'error'); } }} className="px-3 py-2 rounded-lg bg-emerald-600 text-white text-xs font-bold">اعتماد</button>
+                    <button onClick={async () => { try { await api.updateSuggestion(item.id, 'rejected'); await fetchDashboardData(); showToast('تم رفض الاقتراح'); } catch (error: any) { showToast(error.message, 'error'); } }} className="px-3 py-2 rounded-lg bg-amber-600 text-white text-xs font-bold">رفض</button>
+                    <button onClick={async () => { try { await api.deleteSuggestion(item.id); await fetchDashboardData(); showToast('تم حذف الاقتراح'); } catch (error: any) { showToast(error.message, 'error'); } }} className="px-3 py-2 rounded-lg bg-red-600 text-white text-xs font-bold">حذف</button>
+                  </div>
+                </article>
+              ))}
+            </div>
+          )}
           {/* TAB 6: SETTINGS (SITE BRANDING & ADMIN ACCOUNT) */}
           {activeTab === 'settings' && (
             <div className="max-w-3xl mx-auto space-y-8">
@@ -2076,7 +2102,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                     <div className="flex flex-col sm:flex-row items-center gap-5 p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-800">
                       <div className="w-20 h-20 rounded-2xl overflow-hidden bg-slate-900 border-2 border-emerald-500/40 p-1 flex items-center justify-center shrink-0 shadow-md">
                         <img
-                          src={siteLogoUrl || '/logo.svg'}
+                          src={getAssetUrl(siteLogoUrl || '/logo.svg')}
                           alt="Logo Preview"
                           className="w-full h-full object-contain"
                         />

@@ -17,11 +17,12 @@ for p in [str(BACKEND_DIR), str(REPO_ROOT)]:
     if p not in sys.path:
         sys.path.insert(0, p)
 
-from .database import init_data_directories, UPLOADS_DIR
-from .routers import auth, apps, categories, developer, analytics, contact, settings, upload
+from .database import get_db, init_data_directories, UPLOADS_DIR
+from .routers import auth, apps, categories, developer, analytics, contact, settings, upload, suggestions
 
-# Initialize storage and seed data
+# Initialize the empty runtime database; demo fixtures are never loaded here.
 init_data_directories()
+get_db()  # Fail fast if persistent storage is corrupt or unreadable.
 
 app = FastAPI(
     title="Eng. Moaz El Shazly Android Apps Platform",
@@ -40,15 +41,15 @@ async def http_exception_handler(request: Request, exc: HTTPException):
     )
 
 # CORS Configuration
-allowed_origins_env = os.environ.get("ALLOWED_ORIGINS", "*")
-allowed_origins = [o.strip() for o in allowed_origins_env.split(",") if o.strip()] or ["*"]
+allowed_origins_env = os.environ.get("ALLOWED_ORIGINS", "https://moazelshazly23.github.io,http://localhost:5173,http://127.0.0.1:5173")
+allowed_origins = [o.strip() for o in allowed_origins_env.split(",") if o.strip()]
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=allowed_origins,
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allow_headers=["Authorization", "Content-Type"],
 )
 
 # Serve uploaded static files (APKs and Images)
@@ -77,6 +78,7 @@ api_routers = [
     contact.router,
     settings.router,
     upload.router,
+    suggestions.router,
 ]
 
 for r in api_routers:

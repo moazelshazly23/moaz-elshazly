@@ -15,7 +15,8 @@ import {
 } from './db.ts';
 
 const router = Router();
-const JWT_SECRET = process.env.JWT_SECRET || 'eng-moaz-secret-key-2026';
+const JWT_SECRET = process.env.JWT_SECRET || '';
+if (!JWT_SECRET || JWT_SECRET.length < 32) throw new Error('Configure JWT_SECRET (at least 32 characters) before starting the API');
 
 // Extend Express Request
 export interface AuthRequest extends Request {

@@ -2,13 +2,11 @@ import React from 'react';
 import { useLanguage } from '../context/LanguageContext.tsx';
 import { DeveloperProfile } from '../types/index.ts';
 import { Logo } from './Logo.tsx';
-import {
-  Github,
-  Linkedin,
-  Play,
-  Heart,
-  ShieldCheck,
-} from 'lucide-react';
+import Github from 'lucide-react/dist/esm/icons/github.js';
+import Linkedin from 'lucide-react/dist/esm/icons/linkedin.js';
+import Play from 'lucide-react/dist/esm/icons/play.js';
+import Heart from 'lucide-react/dist/esm/icons/heart.js';
+import ShieldCheck from 'lucide-react/dist/esm/icons/shield-check.js';
 
 interface FooterProps {
   developer: DeveloperProfile | null;

@@ -1,20 +1,20 @@
-import { getApiUrl } from '../services/api.ts';
+import { getApiUrl, getAssetUrl } from '../services/api.ts';
 import React, { useState, useEffect } from 'react';
 import { useLanguage } from '../context/LanguageContext.tsx';
 import { AppItem, AppVersion } from '../types/index.ts';
 import confetti from 'canvas-confetti';
-import {
-  X,
-  Download,
-  ShieldCheck,
-  CheckCircle2,
-  HardDrive,
-  Smartphone,
-  ChevronDown,
-  ChevronUp,
-  FileCheck,
-  Sparkles,
-} from 'lucide-react';
+import X from 'lucide-react/dist/esm/icons/x.js';
+import Download from 'lucide-react/dist/esm/icons/download.js';
+import ShieldCheck from 'lucide-react/dist/esm/icons/shield-check.js';
+import CheckCircle2 from 'lucide-react/dist/esm/icons/circle-check.js';
+import HardDrive from 'lucide-react/dist/esm/icons/hard-drive.js';
+import Smartphone from 'lucide-react/dist/esm/icons/smartphone.js';
+import ChevronDown from 'lucide-react/dist/esm/icons/chevron-down.js';
+import ChevronUp from 'lucide-react/dist/esm/icons/chevron-up.js';
+import FileCheck from 'lucide-react/dist/esm/icons/file-check.js';
+import Sparkles from 'lucide-react/dist/esm/icons/sparkles.js';
+
+
 
 interface DownloadModalProps {
   app: AppItem | null;
@@ -119,9 +119,9 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({
         <div className="flex items-center gap-4 mb-4">
           <div className="w-16 h-16 rounded-2xl overflow-hidden bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-800 shadow-md">
             <img
-              src={app.iconUrl}
+              src={getAssetUrl(app.iconUrl || '/logo.svg')}
               alt={app.title[language]}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-contain"
             />
           </div>
           <div>

@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.env
+.env.*
+!.env.example
+backend/runtime_data/
+*.py[cod]
+__pycache__/

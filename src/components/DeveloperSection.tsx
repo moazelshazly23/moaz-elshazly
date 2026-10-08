@@ -1,20 +1,19 @@
+import { getAssetUrl } from '../services/api.ts';
 import React from 'react';
 import { useLanguage } from '../context/LanguageContext.tsx';
 import { DeveloperProfile } from '../types/index.ts';
-import {
-  UserCheck,
-  Code,
-  MapPin,
-  Mail,
-  Phone,
-  Github,
-  Linkedin,
-  Play,
-  Send,
-  CheckCircle,
-  Briefcase,
-  Terminal,
-} from 'lucide-react';
+import UserCheck from 'lucide-react/dist/esm/icons/user-check.js';
+import Code from 'lucide-react/dist/esm/icons/code.js';
+import MapPin from 'lucide-react/dist/esm/icons/map-pin.js';
+import Mail from 'lucide-react/dist/esm/icons/mail.js';
+import Phone from 'lucide-react/dist/esm/icons/phone.js';
+import Github from 'lucide-react/dist/esm/icons/github.js';
+import Linkedin from 'lucide-react/dist/esm/icons/linkedin.js';
+import Play from 'lucide-react/dist/esm/icons/play.js';
+import Send from 'lucide-react/dist/esm/icons/send.js';
+import CheckCircle from 'lucide-react/dist/esm/icons/circle-check-big.js';
+import Briefcase from 'lucide-react/dist/esm/icons/briefcase.js';
+import Terminal from 'lucide-react/dist/esm/icons/terminal.js';
 
 interface DeveloperSectionProps {
   developer: DeveloperProfile | null;
@@ -55,7 +54,7 @@ export const DeveloperSection: React.FC<DeveloperSectionProps> = ({
             <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 mb-6">
               <div className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-3xl overflow-hidden bg-slate-100 dark:bg-slate-800 border-2 border-emerald-500/30 shadow-lg shrink-0">
                 <img
-                  src={developer.avatarUrl}
+                  src={getAssetUrl(developer.avatarUrl)}
                   alt={developer.name[language]}
                   className="w-full h-full object-cover"
                 />

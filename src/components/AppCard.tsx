@@ -1,15 +1,14 @@
+import { getAssetUrl } from '../services/api.ts';
 import React from 'react';
 import { useLanguage } from '../context/LanguageContext.tsx';
 import { AppItem } from '../types/index.ts';
-import {
-  Download,
-  Star,
-  ShieldCheck,
-  Smartphone,
-  ExternalLink,
-  HardDrive,
-  Sparkles,
-} from 'lucide-react';
+import Download from 'lucide-react/dist/esm/icons/download.js';
+import Star from 'lucide-react/dist/esm/icons/star.js';
+import ShieldCheck from 'lucide-react/dist/esm/icons/shield-check.js';
+import Smartphone from 'lucide-react/dist/esm/icons/smartphone.js';
+import ExternalLink from 'lucide-react/dist/esm/icons/external-link.js';
+import HardDrive from 'lucide-react/dist/esm/icons/hard-drive.js';
+import Sparkles from 'lucide-react/dist/esm/icons/sparkles.js';
 
 interface AppCardProps {
   app: AppItem;
@@ -41,9 +40,9 @@ export const AppCard: React.FC<AppCardProps> = ({
         <div className="flex items-start gap-4 mb-4">
           <div className="relative shrink-0 w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden bg-slate-100 dark:bg-slate-800 border border-slate-200/80 dark:border-slate-800/80 shadow-md shadow-slate-200/50 dark:shadow-black/30 group-hover:scale-105 transition-transform duration-300">
             <img
-              src={app.iconUrl}
+              src={getAssetUrl(app.iconUrl || '/logo.svg')}
               alt={app.title[language]}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-contain"
               loading="lazy"
             />
           </div>

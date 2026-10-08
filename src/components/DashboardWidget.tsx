@@ -13,20 +13,18 @@ import {
   ResponsiveContainer,
   CartesianGrid,
 } from 'recharts';
-import {
-  TrendingUp,
-  RefreshCw,
-  Activity,
-  Zap,
-  Clock,
-  ShieldCheck,
-  Smartphone,
-  BarChart2,
-  Sliders,
-  CheckCircle2,
-  ChevronRight,
-  Radio,
-} from 'lucide-react';
+import TrendingUp from 'lucide-react/dist/esm/icons/trending-up.js';
+import RefreshCw from 'lucide-react/dist/esm/icons/refresh-cw.js';
+import Activity from 'lucide-react/dist/esm/icons/activity.js';
+import Zap from 'lucide-react/dist/esm/icons/zap.js';
+import Clock from 'lucide-react/dist/esm/icons/clock.js';
+import ShieldCheck from 'lucide-react/dist/esm/icons/shield-check.js';
+import Smartphone from 'lucide-react/dist/esm/icons/smartphone.js';
+import BarChart2 from 'lucide-react/dist/esm/icons/chart-no-axes-column.js';
+import Sliders from 'lucide-react/dist/esm/icons/sliders-vertical.js';
+import CheckCircle2 from 'lucide-react/dist/esm/icons/circle-check.js';
+import ChevronRight from 'lucide-react/dist/esm/icons/chevron-right.js';
+import Radio from 'lucide-react/dist/esm/icons/radio.js';
 
 interface DashboardWidgetProps {
   className?: string;

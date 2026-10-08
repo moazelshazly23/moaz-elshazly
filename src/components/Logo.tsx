@@ -1,3 +1,4 @@
+import { getAssetUrl } from '../services/api.ts';
 import React from 'react';
 
 interface LogoProps {
@@ -27,7 +28,7 @@ export const Logo: React.FC<LogoProps> = ({
         className={`relative overflow-hidden shrink-0 border border-emerald-500/30 shadow-lg shadow-emerald-500/10 flex items-center justify-center bg-slate-900 ${sizeClasses[size]} ${className}`}
       >
         <img
-          src={customLogoUrl}
+          src={getAssetUrl(customLogoUrl)}
           alt="Site Logo"
           className="w-full h-full object-contain p-1"
         />

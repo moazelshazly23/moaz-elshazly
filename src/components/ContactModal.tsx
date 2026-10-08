@@ -1,16 +1,14 @@
 import React, { useState } from 'react';
 import { useLanguage } from '../context/LanguageContext.tsx';
 import { api } from '../services/api.ts';
-import {
-  X,
-  Send,
-  CheckCircle2,
-  Mail,
-  User,
-  MessageSquare,
-  HelpCircle,
-  Loader2,
-} from 'lucide-react';
+import X from 'lucide-react/dist/esm/icons/x.js';
+import Send from 'lucide-react/dist/esm/icons/send.js';
+import CheckCircle2 from 'lucide-react/dist/esm/icons/circle-check.js';
+import Mail from 'lucide-react/dist/esm/icons/mail.js';
+import User from 'lucide-react/dist/esm/icons/user.js';
+import MessageSquare from 'lucide-react/dist/esm/icons/message-square.js';
+import HelpCircle from 'lucide-react/dist/esm/icons/circle-question-mark.js';
+import Loader2 from 'lucide-react/dist/esm/icons/loader-circle.js';
 
 interface ContactModalProps {
   isOpen: boolean;
@@ -19,6 +17,12 @@ interface ContactModalProps {
 
 export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
   const { t } = useLanguage();
+  const [kind, setKind] = useState<'contact' | 'edit' | 'app'>('contact');
+  const [suggestedApp, setSuggestedApp] = useState('');
+  const [suggestion, setSuggestion] = useState('');
+  const [appUrl, setAppUrl] = useState('');
+  const [officialWebsite, setOfficialWebsite] = useState('');
+  const [category, setCategory] = useState('');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [subject, setSubject] = useState('');
@@ -31,7 +35,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name || !email || !message) {
+    if (kind === 'contact' && (!name || !email || !message)) {
       setErrorMessage('يرجى ملء جميع الحقول المطلوبة');
       return;
     }
@@ -39,7 +43,13 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
     try {
       setIsSubmitting(true);
       setErrorMessage('');
-      await api.sendMessage({ name, email, subject, message });
+      if (kind === 'contact') {
+        await api.sendMessage({ name, email, subject, message });
+      } else if (kind === 'edit') {
+        await api.submitSuggestion({ type: 'edit', name, email, app: suggestedApp, suggestion, details: message, honeypot: '' });
+      } else {
+        await api.submitSuggestion({ type: 'app', name, email, appName: subject, appUrl, category, description: message, officialWebsite, honeypot: '' });
+      }
       setIsSuccess(true);
       setName('');
       setEmail('');
@@ -72,13 +82,18 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
         <div className="mb-6">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-xs font-bold mb-2">
             <Mail className="w-3.5 h-3.5" />
-            <span>طلب استشارة أو مشروع</span>
+            <span>{kind === 'contact' ? 'طلب استشارة أو مشروع' : kind === 'edit' ? 'اقتراح تعديل' : 'اقتراح تطبيق'}</span>
+          </div>
+          <div className="flex gap-2 mb-4 pe-8">
+            <button type="button" onClick={() => setKind('contact')} className={`px-3 py-2 rounded-lg text-xs font-bold ${kind === 'contact' ? 'bg-emerald-600 text-white' : 'bg-slate-100 dark:bg-slate-800'}`}>تواصل</button>
+            <button type="button" onClick={() => setKind('edit')} className={`px-3 py-2 rounded-lg text-xs font-bold ${kind === 'edit' ? 'bg-emerald-600 text-white' : 'bg-slate-100 dark:bg-slate-800'}`}>اقتراح تعديل</button>
+            <button type="button" onClick={() => setKind('app')} className={`px-3 py-2 rounded-lg text-xs font-bold ${kind === 'app' ? 'bg-emerald-600 text-white' : 'bg-slate-100 dark:bg-slate-800'}`}>اقتراح تطبيق</button>
           </div>
           <h3 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white">
-            {t('contactTitle')}
+            {kind === 'contact' ? t('contactTitle') : kind === 'edit' ? 'اقتراح تعديل تطبيق' : 'اقتراح تطبيق جديد'}
           </h3>
           <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
-            {t('contactSubtitle')}
+            {kind === 'contact' ? t('contactSubtitle') : 'شاركنا اقتراحك، وسيراجعه فريق الإدارة.'}
           </p>
         </div>
 
@@ -102,13 +117,13 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
 
             <div>
               <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">
-                {t('yourName')} *
+                {t('yourName')} {kind === 'contact' && '*'}
               </label>
               <div className="relative">
                 <User className="absolute start-3.5 top-3.5 w-4 h-4 text-slate-400" />
                 <input
                   type="text"
-                  required
+                  required={kind === 'contact'}
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="مثال: م. كريم أحمد"
@@ -119,13 +134,13 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
 
             <div>
               <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">
-                {t('yourEmail')} *
+                {t('yourEmail')} {kind === 'contact' && '*'}
               </label>
               <div className="relative">
                 <Mail className="absolute start-3.5 top-3.5 w-4 h-4 text-slate-400" />
                 <input
                   type="email"
-                  required
+                  required={kind === 'contact'}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="name@example.com"
@@ -134,30 +149,27 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
               </div>
             </div>
 
-            <div>
+            {kind !== 'edit' && <div>
               <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">
-                {t('subject')}
+                {kind === 'app' ? 'اسم التطبيق *' : t('subject')}
               </label>
               <div className="relative">
                 <HelpCircle className="absolute start-3.5 top-3.5 w-4 h-4 text-slate-400" />
-                <input
-                  type="text"
-                  value={subject}
-                  onChange={(e) => setSubject(e.target.value)}
-                  placeholder="مثال: تطوير تطبيق أندرويد لخدمات التوصيل"
-                  className="w-full ps-10 pe-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
-                />
+                <input type="text" required={kind === 'app'} maxLength={160} value={subject} onChange={(e) => setSubject(e.target.value)} placeholder="مثال: تطبيق لإدارة المهام" className="w-full ps-10 pe-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500" />
               </div>
-            </div>
+            </div>}
+            {kind === 'edit' && <div className="space-y-3"><input required maxLength={160} value={suggestedApp} onChange={(e) => setSuggestedApp(e.target.value)} placeholder="اسم التطبيق المقصود *" className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-800" /><textarea required maxLength={2000} rows={2} value={suggestion} onChange={(e) => setSuggestion(e.target.value)} placeholder="اقتراح التعديل *" className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-800" /></div>}
+            {kind === 'app' && <div className="grid sm:grid-cols-2 gap-3"><input type="url" maxLength={2048} value={appUrl} onChange={(e) => setAppUrl(e.target.value)} placeholder="رابط التطبيق أو صفحة المعلومات" className="px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-800" /><input type="url" maxLength={2048} value={officialWebsite} onChange={(e) => setOfficialWebsite(e.target.value)} placeholder="الموقع الرسمي (اختياري)" className="px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-800" /><input maxLength={100} value={category} onChange={(e) => setCategory(e.target.value)} placeholder="التصنيف" className="px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-800" /></div>}
 
             <div>
               <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">
-                {t('yourMessage')} *
+                {kind === 'contact' ? t('yourMessage') : kind === 'edit' ? 'تفاصيل إضافية' : 'وصف التطبيق'} {kind === 'contact' && '*'}
               </label>
               <div className="relative">
                 <MessageSquare className="absolute start-3.5 top-3.5 w-4 h-4 text-slate-400" />
                 <textarea
-                  required
+                  required={kind === 'contact' || kind === 'app'}
+                  maxLength={kind === 'app' ? 3000 : 5000}
                   rows={4}
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}

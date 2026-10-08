@@ -8,13 +8,21 @@ import {
   ContactMessage,
   AdminUser,
   SiteSettings,
+  SuggestionItem,
 } from '../types/index.ts';
 
 // Configurable API base URL for FastAPI backend.
 // In production or cross-origin deployment, configure VITE_API_URL (e.g. https://api.yourdomain.com).
-// When empty or on same domain, defaults to relative paths (e.g. /api/...).
-export const API_BASE_URL = (import.meta.env.VITE_API_URL || '').replace(/\/+$/, '');
+// Development can use relative paths; production defaults to the configured FastAPI service.
+export const API_BASE_URL = (import.meta.env.VITE_API_URL || (import.meta.env.PROD ? 'https://moaz-elshazly.fastapicloud.dev' : '')).replace(/\/+$/, '');
 
+export function getAssetUrl(url?: string): string {
+  if (!url) return '';
+  if (/^(https?:|data:|blob:)/i.test(url)) return url;
+  if (url.startsWith('/uploads/')) return `${API_BASE_URL}${url}`;
+  if (url.startsWith('/')) return `${import.meta.env.BASE_URL}${url.slice(1)}`;
+  return url;
+}
 export function getApiUrl(path: string): string {
   const cleanPath = path.startsWith('/') ? path : `/${path}`;
   return `${API_BASE_URL}${cleanPath}`;
@@ -193,7 +201,8 @@ export const api = {
       const err = await res.json().catch(() => ({}));
       throw new Error(err.error || err.detail || 'Failed to upload APK file');
     }
-    return res.json();
+    const result = await res.json();
+    return { ...result, apkUrl: getAssetUrl(result.apkUrl) };
   },
 
   async uploadImage(file: File): Promise<{ imageUrl: string; filename: string }> {
@@ -209,7 +218,8 @@ export const api = {
       const err = await res.json().catch(() => ({}));
       throw new Error(err.error || err.detail || 'Failed to upload image');
     }
-    return res.json();
+    const result = await res.json();
+    return { ...result, imageUrl: getAssetUrl(result.imageUrl) };
   },
 
   // DEVELOPER PROFILE
@@ -264,7 +274,8 @@ export const api = {
 
     const res = await fetch(getApiUrl(endpoint));
     if (!res.ok) throw new Error('Failed to initiate download');
-    return res.json();
+    const result = await res.json();
+    return { ...result, downloadUrl: getAssetUrl(result.downloadUrl) };
   },
 
   // AUTH
@@ -335,6 +346,34 @@ export const api = {
     if (!res.ok) throw new Error('Failed to delete message');
   },
 
+  // PUBLIC SUGGESTIONS
+  async submitSuggestion(data: Record<string, string>): Promise<void> {
+    const res = await fetch(getApiUrl('/api/suggestions'), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.detail || err.error || 'تعذر إرسال الاقتراح');
+    }
+  },
+
+  async getSuggestions(): Promise<SuggestionItem[]> {
+    const res = await fetch(getApiUrl('/api/suggestions'), { headers: { ...getAuthHeader() } });
+    if (!res.ok) throw new Error('Failed to fetch suggestions');
+    return res.json();
+  },
+
+  async updateSuggestion(id: string, status: SuggestionItem['status']): Promise<void> {
+    const res = await fetch(getApiUrl(`/api/suggestions/${id}`), { method: 'PUT', headers: { 'Content-Type': 'application/json', ...getAuthHeader() }, body: JSON.stringify({ status }) });
+    if (!res.ok) throw new Error('Failed to update suggestion');
+  },
+
+  async deleteSuggestion(id: string): Promise<void> {
+    const res = await fetch(getApiUrl(`/api/suggestions/${id}`), { method: 'DELETE', headers: { ...getAuthHeader() } });
+    if (!res.ok) throw new Error('Failed to delete suggestion');
+  },
   // SITE SETTINGS
   async getSettings(): Promise<SiteSettings> {
     const res = await fetch(getApiUrl('/api/settings'));

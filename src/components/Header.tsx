@@ -3,20 +3,18 @@ import { useLanguage } from '../context/LanguageContext.tsx';
 import { useTheme } from '../context/ThemeContext.tsx';
 import { useAuth } from '../context/AuthContext.tsx';
 import { Logo } from './Logo.tsx';
-import {
-  Smartphone,
-  Sun,
-  Moon,
-  Globe,
-  ShieldCheck,
-  Menu,
-  X,
-  LogOut,
-  LayoutDashboard,
-  User,
-  Send,
-  Layers,
-} from 'lucide-react';
+import Smartphone from 'lucide-react/dist/esm/icons/smartphone.js';
+import Sun from 'lucide-react/dist/esm/icons/sun.js';
+import Moon from 'lucide-react/dist/esm/icons/moon.js';
+import Globe from 'lucide-react/dist/esm/icons/globe.js';
+import ShieldCheck from 'lucide-react/dist/esm/icons/shield-check.js';
+import Menu from 'lucide-react/dist/esm/icons/menu.js';
+import X from 'lucide-react/dist/esm/icons/x.js';
+import LogOut from 'lucide-react/dist/esm/icons/log-out.js';
+import LayoutDashboard from 'lucide-react/dist/esm/icons/layout-dashboard.js';
+import User from 'lucide-react/dist/esm/icons/user.js';
+import Send from 'lucide-react/dist/esm/icons/send.js';
+import Layers from 'lucide-react/dist/esm/icons/layers.js';
 
 interface HeaderProps {
   onOpenAdmin: () => void;

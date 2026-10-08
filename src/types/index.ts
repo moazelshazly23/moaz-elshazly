@@ -1,3 +1,5 @@
+
+
 export interface AppVersion {
   id: string;
   versionName: string;
@@ -198,3 +200,20 @@ export interface SiteSettings {
   directDownloadEnabled: boolean;
 }
 
+
+export interface SuggestionItem {
+  id: string;
+  type: 'edit' | 'app';
+  status: 'pending' | 'approved' | 'rejected' | 'reviewed';
+  name?: string;
+  email?: string;
+  app?: string;
+  suggestion?: string;
+  details?: string;
+  appName?: string;
+  appUrl?: string;
+  category?: string;
+  description?: string;
+  officialWebsite?: string;
+  createdAt: string;
+}

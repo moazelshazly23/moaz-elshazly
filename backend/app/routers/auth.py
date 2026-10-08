@@ -26,6 +26,8 @@ def login(req: LoginRequest):
 
     db = get_db()
     admin = db.get("admin", {})
+    if not admin.get('email') or not admin.get('passwordHash'):
+        raise HTTPException(status_code=status.HTTP_503_SERVICE_UNAVAILABLE, detail='Admin credentials are not configured')
     input_str = req.email.strip().lower()
     email_matches = admin.get("email", "").lower() == input_str
     name_matches = admin.get("name", "").lower() == input_str
@@ -61,6 +63,8 @@ def login(req: LoginRequest):
 def get_me(current_user: dict = Depends(get_current_admin)):
     db = get_db()
     admin = db.get("admin", {})
+    if not admin.get('email') or not admin.get('passwordHash'):
+        raise HTTPException(status_code=status.HTTP_503_SERVICE_UNAVAILABLE, detail='Admin credentials are not configured')
     return {
         "id": admin.get("id"),
         "name": admin.get("name"),
@@ -71,6 +75,8 @@ def get_me(current_user: dict = Depends(get_current_admin)):
 def update_profile(req: ProfileUpdateRequest, current_user: dict = Depends(get_current_admin)):
     db = get_db()
     admin = db.get("admin", {})
+    if not admin.get('email') or not admin.get('passwordHash'):
+        raise HTTPException(status_code=status.HTTP_503_SERVICE_UNAVAILABLE, detail='Admin credentials are not configured')
 
     if req.currentPassword and req.newPassword:
         if not verify_password(req.currentPassword, admin.get("passwordHash", "")):

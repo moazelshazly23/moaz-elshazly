@@ -1,24 +1,23 @@
+import { getAssetUrl } from '../services/api.ts';
 import React, { useState } from 'react';
 import { useLanguage } from '../context/LanguageContext.tsx';
 import { AppItem, AppVersion } from '../types/index.ts';
-import {
-  X,
-  Download,
-  Star,
-  ShieldCheck,
-  Smartphone,
-  HardDrive,
-  Calendar,
-  Share2,
-  Check,
-  Github,
-  Play,
-  Layers,
-  ChevronRight,
-  ExternalLink,
-  History,
-  FileCode2,
-} from 'lucide-react';
+import X from 'lucide-react/dist/esm/icons/x.js';
+import Download from 'lucide-react/dist/esm/icons/download.js';
+import Star from 'lucide-react/dist/esm/icons/star.js';
+import ShieldCheck from 'lucide-react/dist/esm/icons/shield-check.js';
+import Smartphone from 'lucide-react/dist/esm/icons/smartphone.js';
+import HardDrive from 'lucide-react/dist/esm/icons/hard-drive.js';
+import Calendar from 'lucide-react/dist/esm/icons/calendar.js';
+import Share2 from 'lucide-react/dist/esm/icons/share-2.js';
+import Check from 'lucide-react/dist/esm/icons/check.js';
+import Github from 'lucide-react/dist/esm/icons/github.js';
+import Play from 'lucide-react/dist/esm/icons/play.js';
+import Layers from 'lucide-react/dist/esm/icons/layers.js';
+import ChevronRight from 'lucide-react/dist/esm/icons/chevron-right.js';
+import ExternalLink from 'lucide-react/dist/esm/icons/external-link.js';
+import History from 'lucide-react/dist/esm/icons/history.js';
+import FileCode2 from 'lucide-react/dist/esm/icons/file-code-2.js';
 
 interface AppDetailModalProps {
   app: AppItem | null;
@@ -60,7 +59,7 @@ export const AppDetailModal: React.FC<AppDetailModalProps> = ({
           className="fixed inset-0 z-60 bg-black/90 flex items-center justify-center p-4 cursor-pointer"
         >
           <img
-            src={selectedScreenshot}
+            src={getAssetUrl(selectedScreenshot)}
             alt="Screenshot preview"
             className="max-h-[90vh] max-w-[90vw] object-contain rounded-2xl shadow-2xl"
           />
@@ -105,9 +104,9 @@ export const AppDetailModal: React.FC<AppDetailModalProps> = ({
           <div className="flex flex-col sm:flex-row items-start gap-6">
             <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-3xl overflow-hidden bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-800 shadow-xl shrink-0">
               <img
-                src={app.iconUrl}
+                src={getAssetUrl(app.iconUrl || '/logo.svg')}
                 alt={app.title[language]}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-contain"
               />
             </div>
 
@@ -211,9 +210,9 @@ export const AppDetailModal: React.FC<AppDetailModalProps> = ({
                         className="relative shrink-0 w-44 sm:w-52 h-80 sm:h-96 rounded-2xl overflow-hidden bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-800 shadow-lg cursor-pointer hover:scale-[1.02] transition-transform duration-200"
                       >
                         <img
-                          src={img}
+                          src={getAssetUrl(img)}
                           alt={`Screenshot ${i + 1}`}
-                          className="w-full h-full object-cover"
+                          className="w-full h-full object-contain"
                           loading="lazy"
                         />
                       </div>
